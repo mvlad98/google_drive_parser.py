@@ -19,13 +19,16 @@ photos=[]
 def SetDownloadDirectory():
     with open('directorydownload.txt','r') as f:
         data=f.readlines()
+
+    data=data[0].replace(r'\\',r'\'')
     return  data
 
 def build_profile():
     data=SetDownloadDirectory()
+    print(data)
     profile = webdriver.FirefoxProfile()
     profile.set_preference("browser.download.folderList", 2)
-    profile.set_preference("browser.download.dir", r"{0}".format(data))
+    profile.set_preference("browser.download.dir", "{0}".format(data))
     profile.set_preference("browser.download.manager.alertOnEXEOpen", False)
     profile.set_preference("browser.helperApps.neverAsk.saveToDisk", "image/jpeg image/png") #mime type
     profile.set_preference("browser.download.manager.showWhenStarting", False)
