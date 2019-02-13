@@ -16,13 +16,16 @@ googledrive='https://accounts.google.com/signin/v2/identifier?service=wise&passi
 
 photos=[]
 
-
+def SetDownloadDirectory():
+    with open('directorydownload.txt','r') as f:
+        data=f.readlines()
+    return  data
 
 def build_profile():
+    data=SetDownloadDirectory()
     profile = webdriver.FirefoxProfile()
-
     profile.set_preference("browser.download.folderList", 2)
-    profile.set_preference("browser.download.dir", r"C:\Users\vladk\Desktop\GoogleParser")
+    profile.set_preference("browser.download.dir", r"{0}".format(data))
     profile.set_preference("browser.download.manager.alertOnEXEOpen", False)
     profile.set_preference("browser.helperApps.neverAsk.saveToDisk", "image/jpeg image/png") #mime type
     profile.set_preference("browser.download.manager.showWhenStarting", False)
